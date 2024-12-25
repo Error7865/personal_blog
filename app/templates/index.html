@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{% endblock %}
+{% block content %}
+    <ol style="--length: {{articles | length}}" role="list">
+        {% for article in articles %}
+        <li style="--i: {{loop.index+1}}">
+            <a href="{{url_for('.show', id=article.id)}}">
+                <h3>{{article.name}}</h3>
+                <p>{{article.txt}}</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ol>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
+</html>

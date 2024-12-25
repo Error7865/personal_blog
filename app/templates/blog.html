@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/blog.css')}}">
+{% endblock %}
+{% block content %}
+    {{article.html_text | safe}}
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
+</html>

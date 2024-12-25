@@ -1,0 +1,13 @@
+#ignore py cache
+__pycache__/
+
+#ignore virtual environment
+vir_env/
+#ignore  .env
+.env
+#ignore migration
+migrations/
+#ignore databases
+instance/
+*.db
+*.sqlite

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block head %}
+        {{super()}}
+        <link rel="stylesheet" href="{{url_for('static', filename='/css/home.css')}}">
+    
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="admin-info-holder">
+            <img src="{{url_for('static', filename='/images/admin.png')}}" class="admin-pic" alt="">
+        </div>
+    </header>
+    <main>
+        <div class="ls">
+            {% if article != [] %}
+                <h2 id="title">List of article </h2>
+                <table>
+                    {% for item in article %}
+                        <tr>
+                            <td>
+                                <p class="ls-art" data-id="{{item.id}}">{{item.name}}</p>
+                            </td>
+                            <td>
+                                <p class="time">{{item.timestamp.strftime('%H:%M  %d-%b-%Y')}}</p>
+                            </td>
+                            <td class="del-con">
+                                <a href="" class="del"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                </svg></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="info">There haven't any article.</p>
+            {% endif %}
+        </div>
+        
+        <div class="left-child arrow-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi-chevron-left left-arrow" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+              </svg>
+        </div>
+        <div class="left">
+            <!-- <div class="left-house"> -->
+                <div class="cont">
+                    <!-- <div class="close-con"> -->
+                        <p class="close">&times;</p>
+                    <!-- </div> -->
+                    <div class="article">
+                        <form action="{{url_for('admin.verify')}}" method="post" enctype="multipart/form-data">
+                            {{form.csrf_token}}
+                            {{form.hide(id='hide')}}
+                            <label for="title">
+                                <!-- <input type="text" id="title" placeholder="Title"> -->
+                                {{form.title(id="art_title", placeholder="Title")}}
+                            </label><br>
+                            <label for="desc">
+                                <!-- <textarea rows="40" cols="40" id="desc" placeholder="Description...">
+                                </textarea> -->
+                                {{form.textarea(rows="40", cols="40", id="desc", placeholder="Description...")}}
+                            </label>
+                            <input type="submit" value="Done">
+                        </form>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </div>
+        <!--tab will open after click on admin pic-->
+        <div class="con"> 
+            <p class="cross">&times;</p>
+            <div class="pic-con">
+                <img src="{{url_for('static', filename='/images/admin.png')}}" class="pic" alt="">
+                <p class="name">Admin name </p>
+            </div>
+        </div> 
+        <!-- tab end -->
+    </main>
+{% endblock %}
+    {% block footer %}
+        <script src="{{url_for('static', filename='/js/home.js')}}"></script>
+    {% endblock %}
+</body>
+</html>
