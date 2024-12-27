@@ -1,3 +1,4 @@
+from flask import render_template
 from app import create_app, db
 from app.model import *
 
@@ -7,6 +8,12 @@ def test():
     import unittest
     tests = unittest.TestLoader().discover(start_dir='tests', pattern='test_*.py')
     unittest.TextTestRunner(verbosity=2).run(tests)
+
+#Handling http errors
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error/404.html'), 404
+
 
 with app.app_context():
     db.create_all()

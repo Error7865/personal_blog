@@ -43,9 +43,20 @@ def verify():
 @admin.route('/artinfo', methods=['POST'])
 def info():
     id = request.get_json()
-    print('HEre was Id ', id)
     article = Article.query.get(id)
     if article is None:
         #article not exits
         pass
     return jsonify(article.to_json())
+
+@admin.get('/del')
+def delete():
+    title=request.args.get('title')
+    target = Article.query.filter_by(name = title).first_or_404()
+    db.session.delete(target)
+    db.session.commit()
+    return redirect(url_for('.verify'))
+
+@admin.get('/not')
+def four():
+    return render_template('404.html')
